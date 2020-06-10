@@ -1,0 +1,23 @@
+<form (submit)="submit()">
+    <modal>
+        <div modal-title>
+            <h5 class="modal-title">Nova Categoria</h5>
+        </div>
+        <div modal-body>
+            <!-- Form {{form.get('name').errors | json}} <br> -->
+            <!-- Form {{form.value | json}} <br> -->
+            <!-- Form {{form.valid}} | {{form.value | json}} <br> -->
+            <!-- Name {{form.get('name').status}} | {{form.get('name').value}} <br> -->
+            <!-- Active {{form.get('is_active').status}} | {{form.get('is_active').value}} <br> -->
+            <card-error *ngIf="showErrors()">
+                <list-error [errors]="errors"></list-error>
+            </card-error>
+
+            <category-form [form]="form"></category-form>
+        </div>
+        <div modal-footer>
+            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Incluir</button>
+        </div>
+    </modal>
+</form>

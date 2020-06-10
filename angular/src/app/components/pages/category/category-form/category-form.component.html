@@ -1,0 +1,11 @@
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldsOptions.name.id">{{ fieldsOptions.name.label }}</label>
+    <input type="text" class="form-control" [id]="fieldsOptions.name.id" isInvalid formControlName="name">
+    <field-error [field]="form.get('name')" 
+                 [label]="fieldsOptions.name.label"
+                 [messages]="fieldsOptions.name.validationMessage"></field-error>
+</div>
+<div class="custom-control custom-checkbox" [formGroup]="form">
+    <input class="custom-control-input" type="checkbox" [id]="fieldsOptions.is_active.id" formControlName="is_active">
+    <label class="custom-control-label" [for]="fieldsOptions.is_active.id">Ativo?</label>
+</div>

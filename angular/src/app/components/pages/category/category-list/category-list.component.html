@@ -1,0 +1,61 @@
+<div class="row">
+    <h1>Listagem de categorias</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>
+                    <button style="width: 140px" class="btn btn-primary" (click)="categoryInsertService.showModalInsert()">
+                        Nova categoria
+                    </button>
+                </td>
+                <td colspan="4">
+                    <category-search-form (onSearch)="search($event)"></category-search-form>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 5%"  [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+                <th style="width: 65%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
+                <th style="width: 10%">Ativa?</th>
+                <th style="width: 10%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado Em</th>
+                <th style="">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let category of categories | paginate: { itemsPerPage: 5, currentPage: pagination.page, totalItems: pagination.totalItems }">
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <!-- {{ category.is_active ? 'Sim' : 'Não' }} <i class="fas fa-check"></i> -->
+                    <i class="fas" [ngClass]="{'fa-check': category.is_active, 'fa-times': !category.is_active}"></i>
+                </td>
+                <td>{{ category.created_at | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                    <a href="javascript:void(0)" (click)="categoryEditService.showModalEdit(category.id)">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a href="javascript:void(0)" (click)="categoryDeleteService.showModalDelete(category.id)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <!-- Editar | Excluir -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination-controls (pageChange)="pageChanged($event)"
+                previousLabel="Anterior"
+                nextLabel="Próximo"></pagination-controls>
+
+</div>
+
+<category-new-modal
+    (onSuccess)="categoryInsertService.onInsertSuccess($event)"
+    (onError)="categoryInsertService.onInsertError($event)"></category-new-modal>
+
+<category-edit-modal [categoryId]="categoryId"
+    (onSuccess)="categoryEditService.onEditSuccess($event)"
+    (onError)="categoryEditService.onEditError($event)"></category-edit-modal>
+
+<category-delete-modal [categoryId]="categoryId"
+    (onSuccess)="categoryDeleteService.onDeleteSuccess($event)"
+    (onError)="categoryDeleteService.onDeleteError($event)"></category-delete-modal>

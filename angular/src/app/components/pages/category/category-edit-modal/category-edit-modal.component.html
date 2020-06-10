@@ -1,0 +1,12 @@
+<form (submit)="submit()">
+    <modal (onHide)="hideModal($event)">
+        <h5 modal-title>Editar Categoria - {{ form.get('name').value }}</h5>
+        <div modal-body>
+            <category-form [form]="form"></category-form>
+        </div>
+        <div modal-footer>
+            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </modal>
+</form>
